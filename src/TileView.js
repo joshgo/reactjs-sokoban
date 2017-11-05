@@ -1,4 +1,8 @@
 import React, {Component} from 'react';
+import boxImage from './box.png'
+import boxOnGoalImage from './box-on-goal.png'
+import personImage from './person.png'
+import personOnGoalImage from './person-on-goal.png'
 
 class TileView extends Component {
 	constructor(props) {
@@ -60,10 +64,19 @@ class TileView extends Component {
 				width : '50px',
 				height: '50px'
 			};
+			var imageSrc = '';
+			if (this.props.item === 'box') 
+				imageSrc = boxImage;
+			else if (this.props.item === 'box-on-goal')
+				imageSrc = boxOnGoalImage;
+			else if (this.props.item === 'person')
+				imageSrc = personImage;
+			else if (this.props.item === 'person-on-goal')
+				imageSrc = personOnGoalImage;
 
 			return(
             <div style={style}>
-			<img style={imgStyle} src={this.props.item + '.png'}/>
+			<img style={imgStyle} src={imageSrc}/>
 			</div>
 			);
 		}
