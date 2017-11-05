@@ -10,9 +10,8 @@ class App extends Component {
 		console.log("app created");
 	}
 
-  calculatePixels(){
+  getMaxSideLength(){
   	var min = Math.max(250, Math.min(this.state.width, this.state.height));
-  	return min / 10;
   }
 
   getScreen(){
@@ -23,7 +22,7 @@ class App extends Component {
   }
 
   render() {
-  	var boardView = <BoardView pixels={this.calculatePixels()} screen={this.getScreen()} />;
+  	var boardView = <BoardView pixels={this.getMaxSideLength()} screen={this.getScreen()} />;
 
     return (
     	boardView

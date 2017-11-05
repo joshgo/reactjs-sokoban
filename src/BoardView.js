@@ -71,15 +71,17 @@ class BoardView extends Component {
 
 	render() {
         var tiles = [];
-        tiles.push(<div></div>);
+        var maxSides = Math.max(this.state.model.getWidth(), this.state.model.getHeight());
 		for(var x = 0; x < this.state.model.getWidth(); x++) {
 			for(var y = 0; y < this.state.model.getHeight(); y++) {
                 var item = this.state.model.getItem({x:x, y:y});
-                console.log(item);
 				var el = <TileView
 							x={x} y={y}
 							screen={this.props.screen}
 							size={this.props.pixels}
+							maxSides={maxSides}
+							width={this.state.model.getWidth()}
+							height={this.state.model.getHeight()}
 							item={item}
 							/>;
 				tiles.push(el);
