@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import boxImage from './box.png'
 import boxOnGoalImage from './box-on-goal.png'
-import personImage from './person.png'
-import personOnGoalImage from './person-on-goal.png'
+import personImage from './person.svg'
+import personOnGoalImage from './person.svg'
 
 class TileView extends Component {
 	constructor(props) {
@@ -29,31 +29,29 @@ class TileView extends Component {
 	}
 
 	render() {
-		var hoffset = this.props.screen.width / 2 - (50 * this.props.width / 2);
-		var voffset = this.props.screen.height/ 2 - (50 * this.props.height / 2);
-
 		var style = {
 			position: 'absolute', 
-			top:  50 *  this.props.y + voffset + 'px',
-			left: 50 *  this.props.x + hoffset + 'px', 
-			width: 50 + 'px',
-			height: 50 + 'px',
+			top:  this.props.pixels *  this.props.y + this.props.offset.voffset + 'px',
+			left: this.props.pixels *  this.props.x + this.props.offset.hoffset + 'px', 
+			width: this.props.pixels + 'px',
+			height: this.props.pixels + 'px',
 			background: this.getColor(this.props.item),
 			textAlign: 'center',
 			verticalAlign: 'middle',
-			lineHeight: 50 + 'px',
-			fontSize : (50 * .8) + 'px',
 			borderStyle: 'solid',
 			borderColor: 'black' 
 		};
+		console.log(this.props);
+		console.log(style);
+		console.log("style.top/left : " + style.top + ", " + style.left);
 
 		if (this.props.item === 'box' || this.props.item === 'box-on-goal' || this.props.item === 'person' || this.props.item === 'person-on-goal') {
 			style = {
 				position: 'absolute', 
-				top:  50 *  this.props.y + voffset + 'px',
-				left: 50 *  this.props.x + hoffset + 'px', 
-				width: 50 + 'px',
-				height: 50 + 'px',
+				top:  this.props.pixels *  this.props.y + this.props.offset.voffset + 'px',
+				left: this.props.pixels *  this.props.x + this.props.offset.hoffset + 'px', 
+				width: this.props.pixels + 'px',
+				height: this.props.pixels + 'px',
 				background: this.getColor(this.props.item),
 				borderStyle: 'solid',
 				borderColor: 'black' 
@@ -61,8 +59,8 @@ class TileView extends Component {
 			var imgStyle = {
 				verticalAlign:'middle',
 				horizontalAlign:'center',
-				width : '50px',
-				height: '50px'
+				width : (this.props.pixels-1) + 'px',
+				height: this.props.pixels + 'px'
 			};
 			var imageSrc = '';
 			if (this.props.item === 'box') 

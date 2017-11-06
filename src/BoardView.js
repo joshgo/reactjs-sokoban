@@ -9,6 +9,7 @@ import 'sweetalert/dist/sweetalert.css';
 class BoardView extends Component {
 	constructor(props) {
 		super(props);
+		this.pixels = 50;
 		this.state = this.getNewBoard();
 	}
 
@@ -18,7 +19,8 @@ class BoardView extends Component {
             model : model,
             focus : model.getPosition(),
 			alert : false,
-			solved : false
+			solved : false,
+			pixels : this.pixels
 		};
 	}
 
@@ -33,6 +35,14 @@ class BoardView extends Component {
 		}
 		else if (event.key === "n" || event.key === "N") {
 			this.setState(this.getNewBoard());
+		}
+		else if (event.key === '+') {
+			this.pixels += 1;
+			this.setState({pixels : this.pixels});
+		}
+		else if (event.key === '-') {
+			this.pixels -= 1;
+			this.setState({pixels : this.pixels});
 		}
 
 		var isFocusedOnTile = this.state.focus.x !== -1; 
@@ -71,14 +81,21 @@ class BoardView extends Component {
 
 	render() {
         var tiles = [];
-        var maxSides = Math.max(this.state.model.getWidth(), this.state.model.getHeight());
+		var maxSides = Math.max(this.state.model.getWidth(), this.state.model.getHeight());
+		var minScreenSide = Math.min(this.props.screen.width, this.props.screen.height);
+		var pixels = minScreenSide/maxSides;
+
+		var hoffset = this.props.screen.width / 2 - (this.state.pixels * this.state.model.getWidth() / 2);
+		var voffset = this.props.screen.height/ 2 - (this.state.pixels * this.state.model.getHeight() / 2);
+
 		for(var x = 0; x < this.state.model.getWidth(); x++) {
 			for(var y = 0; y < this.state.model.getHeight(); y++) {
                 var item = this.state.model.getItem({x:x, y:y});
 				var el = <TileView
 							x={x} y={y}
 							screen={this.props.screen}
-							size={this.props.pixels}
+							pixels={this.state.pixels}
+							offset={{hoffset:hoffset, voffset:voffset}}
 							maxSides={maxSides}
 							width={this.state.model.getWidth()}
 							height={this.state.model.getHeight()}
